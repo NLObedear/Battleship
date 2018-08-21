@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # README #
 
 This project is an implementation of the classic Battleship game.
@@ -13,3 +14,7 @@ To get started:
 1. Open command line and cd to project root
 1. Build using `build.sh`
 1. Run using `run.sh` -- you can also find the executable in the bin folder, but this script makes it simpler to build and run from the command line.
+=======
+# Battleship
+The battleship game project
+>>>>>>> 188c4771d47f5befae371d5a09651465ad8fb283
