@@ -175,9 +175,10 @@ static class HighScoreController
 
 			GameController.AddNewState(GameState.ViewingHighScores);
 
+
+            // FIXME: possible bug causing highscore name text scrolling out of view
 			int x = 0;
 			x = SCORES_LEFT + SwinGame.TextWidth(GameResources.GameFont("Courier"), "Name: ");
-
 			SwinGame.StartReadingText(Color.White, NAME_WIDTH, GameResources.GameFont("Courier"), x, ENTRY_TOP);
 
 			//Read the text from the user
@@ -199,6 +200,9 @@ static class HighScoreController
 			_Scores.RemoveAt(_Scores.Count - 1);
 			_Scores.Add(s);
 			_Scores.Sort();
+
+            // Added method to save scores
+            SaveScores();
 
 			GameController.EndCurrentState();
 		}
