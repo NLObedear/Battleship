@@ -20,6 +20,7 @@ public static class GameResources
 
 	private static void LoadImages()
 	{
+
 		//Backgrounds
 		NewImage("Menu", "main_page.jpg");
 		NewImage("Discovery", "discover.jpg");
@@ -43,10 +44,6 @@ public static class GameResources
 		NewImage("Explosion", "explosion.png");
 		NewImage("Splash", "splash.png");
 
-        //Game End
-        NewImage("win","success.png");
-        NewImage("lose","failure.png");
-
 	}
 
 	private static void LoadSounds()
@@ -58,6 +55,7 @@ public static class GameResources
 		NewSound("Miss", "watershot.wav");
 		NewSound("Winner", "winner.wav");
 		NewSound("Lose", "lose.wav");
+        NewSound("Button", "button.wav");
 	}
 
 	private static void LoadMusic()

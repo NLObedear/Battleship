@@ -260,6 +260,8 @@ public static class GameController
 		}
 	}
 
+
+
 	/// <summary>
 	/// Handles the user SwinGame.
 	/// </summary>
@@ -283,6 +285,9 @@ public static class GameController
 			case GameState.AlteringSettings:
 				MenuController.HandleSetupMenuInput();
 				break;
+            case GameState.AlteringVolume:
+                MenuController.HandleVolumeMenuInput();
+                break;
 			case GameState.Deploying:
 				DeploymentController.HandleDeploymentInput();
 				break;
@@ -320,6 +325,9 @@ public static class GameController
 			case GameState.AlteringSettings:
 				MenuController.DrawSettings();
 				break;
+            case GameState.AlteringVolume:
+                MenuController.DrawVolume();
+                break;
 			case GameState.Deploying:
 				DeploymentController.DrawDeployment();
 				break;
@@ -376,5 +384,15 @@ public static class GameController
 	{
 		_aiSetting = setting;
 	}
+
+    public static void MuteButton()
+    {
+        SwinGame.SetMusicVolume(0);
+    }
+
+    public static void UnmuteButton()
+    {
+        SwinGame.SetMusicVolume(1);
+    }
 
 }

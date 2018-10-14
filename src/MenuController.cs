@@ -27,6 +27,7 @@ static class MenuController
 			"PLAY",
 			"SETUP",
 			"SCORES",
+            "VOLUME",
 			"QUIT"
 		},
 		new string[] {
@@ -38,7 +39,12 @@ static class MenuController
 			"EASY",
 			"MEDIUM",
 			"HARD"
-		}
+		},
+        new string[]
+        {
+            "MUTE",
+            "UNMUTE"
+        }
 
 	};
 	private const int MENU_TOP = 575;
@@ -48,16 +54,22 @@ static class MenuController
 	private const int BUTTON_HEIGHT = 15;
 	private const int BUTTON_SEP = BUTTON_WIDTH + MENU_GAP;
 
+
 	private const int TEXT_OFFSET = 0;
 	private const int MAIN_MENU = 0;
 	private const int GAME_MENU = 1;
 
 	private const int SETUP_MENU = 2;
+    private const int VOLUME_MENU = 3;
 	private const int MAIN_MENU_PLAY_BUTTON = 0;
 	private const int MAIN_MENU_SETUP_BUTTON = 1;
 	private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
+    private const int MAIN_MENU_VOLUME_BUTTON = 3;
+    private const int VOLUME_MENU_MUTE_BUTTON = 0;
+    private const int VOLUME_MENU_UNMUTE_BUTTON = 1;
 
-	private const int MAIN_MENU_QUIT_BUTTON = 3;
+
+    private const int MAIN_MENU_QUIT_BUTTON = 4;
 	private const int SETUP_MENU_EASY_BUTTON = 0;
 	private const int SETUP_MENU_MEDIUM_BUTTON = 1;
 	private const int SETUP_MENU_HARD_BUTTON = 2;
@@ -65,7 +77,7 @@ static class MenuController
 	private const int SETUP_MENU_EXIT_BUTTON = 3;
 	private const int GAME_MENU_RETURN_BUTTON = 0;
 	private const int GAME_MENU_SURRENDER_BUTTON = 1;
-
+    
 	private const int GAME_MENU_QUIT_BUTTON = 2;
 	private static readonly Color MENU_COLOR = SwinGame.RGBAColor(2, 167, 252, 255);
 
@@ -91,13 +103,28 @@ static class MenuController
 		}
 	}
 
-	/// <summary>
-	/// Handle input in the game menu.
-	/// </summary>
-	/// <remarks>
-	/// Player can return to the game, surrender, or quit entirely
-	/// </remarks>
-	public static void HandleGameMenuInput()
+    /// <summary>
+    /// Handles the processing of volume menu
+    /// </summary>
+
+    public static void HandleVolumeMenuInput()
+    {
+        bool handled = false;
+        handled = HandleMenuInput(VOLUME_MENU, 1, 3);
+
+        if (!handled)
+        {
+            HandleMenuInput(VOLUME_MENU, 0, 0);
+        }
+    }
+
+    /// <summary>
+    /// Handle input in the game menu.
+    /// </summary>
+    /// <remarks>
+    /// Player can return to the game, surrender, or quit entirely
+    /// </remarks>
+    public static void HandleGameMenuInput()
 	{
 		HandleMenuInput(GAME_MENU, 0, 0);
 	}
@@ -172,14 +199,31 @@ static class MenuController
 		DrawButtons(SETUP_MENU, 1, 1);
 	}
 
-	/// <summary>
-	/// Draw the buttons associated with a top level menu.
-	/// </summary>
-	/// <param name="menu">the index of the menu to draw</param>
-	private static void DrawButtons(int menu)
+    /// <summary>
+    /// Draws volume menu and shows main menu
+    /// </summary>
+
+    public static void DrawVolume()
+    {
+        //Clears the Screen to Black
+        //SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
+
+        DrawButtons(MAIN_MENU);
+        DrawButtons(VOLUME_MENU, 1, 3);
+    }
+
+
+    /// <summary>
+    /// Draw the buttons associated with a top level menu.
+    /// </summary>
+    /// <param name="menu">the index of the menu to draw</param>
+    private static void DrawButtons(int menu)
 	{
 		DrawButtons(menu, 0, 0);
+        
 	}
+
+
 
 	/// <summary>
 	/// Draws the menu at the indicated level.
@@ -206,7 +250,8 @@ static class MenuController
 
 			if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset)) {
 				SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
-			}
+                SwinGame.PlaySoundEffect(GameResources.GameSound("Button"));
+            }
 		}
 	}
 
@@ -249,6 +294,9 @@ static class MenuController
 			case SETUP_MENU:
 				PerformSetupMenuAction(button);
 				break;
+            case VOLUME_MENU:
+                PerformVolumeMenuAction(button);
+                break;
 			case GAME_MENU:
 				PerformGameMenuAction(button);
 				break;
@@ -271,6 +319,9 @@ static class MenuController
 			case MAIN_MENU_TOP_SCORES_BUTTON:
 				GameController.AddNewState(GameState.ViewingHighScores);
 				break;
+            case MAIN_MENU_VOLUME_BUTTON:
+                GameController.AddNewState(GameState.AlteringVolume);
+                break;
 			case MAIN_MENU_QUIT_BUTTON:
 				GameController.EndCurrentState();
 				break;
@@ -297,6 +348,22 @@ static class MenuController
 		//Always end state - handles exit button as well
 		GameController.EndCurrentState();
 	}
+
+    private static void PerformVolumeMenuAction(int button)
+    {
+        switch (button)
+        {
+            case VOLUME_MENU_MUTE_BUTTON:
+                GameController.MuteButton();
+                //SwinGame.SetMusicVolume(0);
+                break;
+            case VOLUME_MENU_UNMUTE_BUTTON:
+                GameController.UnmuteButton();
+                //SwinGame.SetMusicVolume(1);
+                break;
+        }
+        GameController.EndCurrentState();
+    }
 
 	/// <summary>
 	/// The game menu was clicked, perform the button's action.

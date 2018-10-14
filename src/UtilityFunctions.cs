@@ -232,6 +232,7 @@ static class UtilityFunctions
 		switch (GameController.CurrentState) {
 			case GameState.ViewingMainMenu:
 			case GameState.ViewingGameMenu:
+            case GameState.AlteringVolume:
 			case GameState.AlteringSettings:
 			case GameState.ViewingHighScores:
 				SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
@@ -253,7 +254,7 @@ static class UtilityFunctions
 
 	public static void AddExplosion(int row, int col)
 	{
-		AddAnimation(row, col, "Splash");
+		AddAnimation(row, col, "Explosion");
 	}
 
 	public static void AddSplash(int row, int col)
