@@ -27,7 +27,8 @@ static class MenuController
 			"PLAY",
 			"SETUP",
 			"SCORES",
-            "VOLUME",
+            "VOLUME", // M
+            "MANUAL", // N   
 			"QUIT"
 		},
 		new string[] {
@@ -40,7 +41,7 @@ static class MenuController
 			"MEDIUM",
 			"HARD"
 		},
-        new string[]
+        new string[] // M
         {
             "MUTE",
             "UNMUTE"
@@ -58,18 +59,21 @@ static class MenuController
 	private const int TEXT_OFFSET = 0;
 	private const int MAIN_MENU = 0;
 	private const int GAME_MENU = 1;
-
-	private const int SETUP_MENU = 2;
-    private const int VOLUME_MENU = 3;
-	private const int MAIN_MENU_PLAY_BUTTON = 0;
+    
+    private const int SETUP_MENU = 2;
+    private const int MANUAL_MENU = 4;
+    private const int MAIN_MENU_PLAY_BUTTON = 0;
 	private const int MAIN_MENU_SETUP_BUTTON = 1;
 	private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
-    private const int MAIN_MENU_VOLUME_BUTTON = 3;
-    private const int VOLUME_MENU_MUTE_BUTTON = 0;
-    private const int VOLUME_MENU_UNMUTE_BUTTON = 1;
+    private const int MAIN_MENU_MANUAL = 4; // N
 
+    private const int VOLUME_MENU = 3; // M
+    private const int MAIN_MENU_VOLUME_BUTTON = 3; // M
+    private const int VOLUME_MENU_UNMUTE_BUTTON = 1; // M
+    private const int VOLUME_MENU_MUTE_BUTTON = 0; // M
+    
 
-    private const int MAIN_MENU_QUIT_BUTTON = 4;
+    private const int MAIN_MENU_QUIT_BUTTON = 5;
 	private const int SETUP_MENU_EASY_BUTTON = 0;
 	private const int SETUP_MENU_MEDIUM_BUTTON = 1;
 	private const int SETUP_MENU_HARD_BUTTON = 2;
@@ -209,7 +213,7 @@ static class MenuController
         //SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
 
         DrawButtons(MAIN_MENU);
-        DrawButtons(VOLUME_MENU, 1, 3);
+        DrawButtons(VOLUME_MENU, 1, 3); // M 
     }
 
 
@@ -297,6 +301,9 @@ static class MenuController
             case VOLUME_MENU:
                 PerformVolumeMenuAction(button);
                 break;
+            case MANUAL_MENU:
+                PerformGameMenuAction(button);
+                break;
 			case GAME_MENU:
 				PerformGameMenuAction(button);
 				break;
@@ -319,8 +326,11 @@ static class MenuController
 			case MAIN_MENU_TOP_SCORES_BUTTON:
 				GameController.AddNewState(GameState.ViewingHighScores);
 				break;
-            case MAIN_MENU_VOLUME_BUTTON:
+            case MAIN_MENU_VOLUME_BUTTON: // M
                 GameController.AddNewState(GameState.AlteringVolume);
+                break;
+            case MAIN_MENU_MANUAL: // N
+                GameController.AddNewState(GameState.Manual);
                 break;
 			case MAIN_MENU_QUIT_BUTTON:
 				GameController.EndCurrentState();

@@ -27,9 +27,9 @@ public static class GameResources
 		NewImage("Deploy", "deploy.jpg");
 		NewImage("Manual", "manual.jpg");
 		
-		//Game End	
-        	NewImage("win","success.png");	
-        	NewImage("lose","failure.png");
+		//Title (Game End)	
+        NewImage("win","success.png");	
+        NewImage("lose","failure.png");
 
 		//Deployment
 		NewImage("LeftRightButton", "deploy_dir_button_horiz.png");

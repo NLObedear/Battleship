@@ -244,7 +244,12 @@ static class UtilityFunctions
 			case GameState.Deploying:
 				SwinGame.DrawBitmap(GameResources.GameImage("Deploy"), 0, 0);
 				break;
-			default:
+            case GameState.Manual:
+                SwinGame.DrawBitmap(GameResources.GameImage("Manual"), 0, 0);
+                if (SwinGame.KeyDown(KeyCode.vk_ESCAPE))
+                    GameController.SwitchState(GameState.ViewingMainMenu);
+                break;
+            default:
 				SwinGame.ClearScreen();
 				break;
 		}

@@ -16,7 +16,7 @@ using SwinGameSDK;
 /// </remarks>
 static class HighScoreController
 {
-	private const int NAME_WIDTH = 10; //*EDIT
+	private const int NAME_WIDTH = 10; // H
 
 	private const int SCORES_LEFT = 490;
 	/// <summary>
