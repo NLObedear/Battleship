@@ -222,8 +222,9 @@ public static class GameController
 	public static void Attack(int row, int col)
 	{
 		AttackResult result = default(AttackResult);
-		result = _theGame.Shoot(row, col);
-		CheckAttackResult(result);
+
+        result = _theGame.Shoot(row, col);
+        CheckAttackResult(result);
 	}
 
 	/// <summary>
